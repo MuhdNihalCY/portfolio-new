@@ -47,7 +47,7 @@ function App() {
     <div className="min-h-screen bg-gray-900 text-gray-100 font-['Inter']">
       {/* Navigation */}
       <nav className={`${scrolled ? 'nav-blur' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 hidden">
           <div className="flex justify-between items-center">
             <a href="#" className="text-2xl font-bold gradient-text">JD</a>
             <div className="flex gap-8">
@@ -72,7 +72,7 @@ function App() {
               Welcome to my portfolio
             </span>
             <h1 className="text-7xl md:text-8xl font-bold mb-8 gradient-text tracking-tight">
-              John Doe
+              Muhammed Nihal
             </h1>
             <p className="text-3xl md:text-4xl mb-6 text-gray-300 font-light">
               Full-Stack Developer & DevOps Engineer
@@ -120,7 +120,7 @@ function App() {
                 <div className="space-y-4">
                   <h3 className="text-2xl font-semibold text-gray-200">Passionate Full-Stack Developer</h3>
                   <p className="text-gray-400 leading-relaxed">
-                    With over 5 years of experience in software development, I've cultivated a deep passion for building
+                    With over 2 years of experience in software development, I've cultivated a deep passion for building
                     robust backend systems and optimizing deployment processes. My journey has taken me from writing
                     my first lines of code to architecting complex distributed systems used by millions.
                   </p>
@@ -170,7 +170,7 @@ function App() {
 
                 <div className="flex gap-6">
                   <a 
-                    href="https://github.com" 
+                    href="https://github.com/muhdnihalcy" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-gray-400 hover:text-white transition-all hover:scale-110"
@@ -178,7 +178,7 @@ function App() {
                     <Github size={24} />
                   </a>
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/in/nihalcy/" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-gray-400 hover:text-white transition-all hover:scale-110"
@@ -186,7 +186,7 @@ function App() {
                     <Linkedin size={24} />
                   </a>
                   <a 
-                    href="mailto:contact@example.com" 
+                    href="mailto:contact@mnihalcy@gmail.com" 
                     className="text-gray-400 hover:text-white transition-all hover:scale-110"
                   >
                     <Mail size={24} />
@@ -268,7 +268,7 @@ function App() {
       <footer className="py-8 relative">
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/95 to-gray-900"></div>
         <div className="container mx-auto px-4 text-center text-gray-400 relative z-10">
-          <p>© 2025 John Doe. All rights reserved.</p>
+          <p>© 2025 Muhammed Nihal C Y. All rights reserved.</p>
         </div>
       </footer>
     </div>
