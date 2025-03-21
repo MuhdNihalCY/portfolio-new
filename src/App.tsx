@@ -3,6 +3,7 @@ import { Github, Linkedin, Mail, Terminal, Server, Cloud, Code2, Database, Arrow
 import TechStack from './components/TechStack';
 import ProjectCard from './components/ProjectCard';
 import ContactForm from './components/ContactForm';
+import ContactDetails from './components/ContactForm';
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -259,7 +260,7 @@ function App() {
             I'm always excited to connect with fellow developers, discuss new projects, or explore opportunities to create something amazing together.
           </p>
           <div className="max-w-2xl mx-auto">
-            <ContactForm />
+            <ContactDetails />
           </div>
         </div>
       </section>

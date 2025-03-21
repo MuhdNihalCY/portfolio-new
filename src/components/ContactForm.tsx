@@ -1,151 +1,85 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 
-const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    success: boolean;
-    message: string;
-  } | null>(null);
-
-  // Replace this with your actual Google Form URL
-  // Look for the form action URL when inspecting your Google Form
-  const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScx8rCaVIT_5WPYvxNC7ZhK4uQ4imq2znis9Rpu3XG-8IHDHg/formResponse';
-  
-  // Replace these with your actual Google Form field names
-  // They typically look like "entry.123456789"
-  const googleFormFields = {
-    name: 'entry.1557782384',
-    email: 'entry.94286970',
-    message: 'entry.1336349009',
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-    
-    try {
-      // Create form data to send to Google
-      const googleFormData = new FormData();
-      googleFormData.append(googleFormFields.name, formData.name);
-      googleFormData.append(googleFormFields.email, formData.email);
-      googleFormData.append(googleFormFields.message, formData.message);
-      
-      // CORS issues will prevent direct submission with fetch
-      // We'll use a no-cors request to submit the form
-      // This won't return a useful response, but the form will be submitted
-      await fetch(googleFormUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: googleFormData,
-      });
-      
-      // Clear the form after submission
-      setFormData({ name: '', email: '', message: '' });
-      setSubmitStatus({
-        success: true,
-        message: 'Thank you for your message! We will get back to you soon.',
-      });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus({
-        success: false,
-        message: 'There was an error submitting your message. Please try again later.',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
+const ContactDetails: React.FC = () => {
   return (
-    <div className="">
-      {submitStatus ? (
-        <div className={`p-4 rounded-xl mb-6 ${submitStatus.success ? 'bg-green-500/20 text-green-200' : 'bg-red-500/20 text-red-200'}`}>
-          {submitStatus.message}
-          {submitStatus.success && (
-            <button 
-              onClick={() => setSubmitStatus(null)} 
-              className="block mt-4 text-sm underline"
-            >
-              Send another message
-            </button>
-          )}
+    <div className="tech-card">
+      <div className="space-y-8">
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-semibold text-gray-200 mb-4">Let's Connect</h3>
+          <p className="text-gray-400">
+            Feel free to reach out through any of the channels below. I'm always open to discussing new projects, opportunities, or just having a chat about technology.
+          </p>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-100 transition-all"
-              required
-              disabled={isSubmitting}
-            />
+        
+        <div className="grid gap-6">
+          <div className="flex items-center gap-4 p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl hover:border-gray-600 transition-all">
+            <div className="p-3 bg-blue-500/10 text-blue-400 rounded-lg">
+              <Mail size={24} />
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-300">Email</h4>
+              <a href="mailto:mnihalcy@gmail.com" className="text-gray-400 hover:text-white transition-colors">
+                mnihalcy@gmail.com
+              </a>
+            </div>
           </div>
           
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-100 transition-all"
-              required
-              disabled={isSubmitting}
-            />
+          <div className="flex items-center gap-4 p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl hover:border-gray-600 transition-all">
+            <div className="p-3 bg-purple-500/10 text-purple-400 rounded-lg">
+              <Phone size={24} />
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-300">Phone</h4>
+              <a href="tel:+919876543210" className="text-gray-400 hover:text-white transition-colors">
+                +91 98765 43210
+              </a>
+            </div>
           </div>
           
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={5}
-              className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-100 transition-all resize-none"
-              required
-              disabled={isSubmitting}
-            />
+          <div className="flex items-center gap-4 p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl hover:border-gray-600 transition-all">
+            <div className="p-3 bg-green-500/10 text-green-400 rounded-lg">
+              <MapPin size={24} />
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-300">Location</h4>
+              <p className="text-gray-400">
+                Calicut, Kerala, India
+              </p>
+            </div>
           </div>
-          
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-4 rounded-xl font-medium transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </button>
-        </form>
-      )}
+        </div>
+        
+        <div className="border-t border-gray-800 pt-8">
+          <h4 className="text-center text-gray-300 mb-6">Find me on social media</h4>
+          <div className="flex justify-center gap-8">
+            <a 
+              href="https://github.com/muhdnihalcy" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-3 bg-gray-800/70 text-gray-400 rounded-xl hover:text-white hover:bg-gray-700 transition-all hover:scale-110"
+            >
+              <Github size={24} />
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/nihalcy/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-3 bg-gray-800/70 text-gray-400 rounded-xl hover:text-white hover:bg-gray-700 transition-all hover:scale-110"
+            >
+              <Linkedin size={24} />
+            </a>
+            <a 
+              href="mailto:mnihalcy@gmail.com" 
+              className="p-3 bg-gray-800/70 text-gray-400 rounded-xl hover:text-white hover:bg-gray-700 transition-all hover:scale-110"
+            >
+              <Mail size={24} />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default ContactForm;
+export default ContactDetails;
