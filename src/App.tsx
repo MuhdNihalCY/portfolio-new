@@ -5,6 +5,7 @@ import ProjectCard from './components/ProjectCard';
 import ContactForm from './components/ContactForm';
 import ContactDetails from './components/ContactForm';
 import DockNavigation from './components/BottomDock';
+import { Helmet } from "react-helmet"; // Added for better SEO meta tags
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,12 +26,6 @@ function App() {
       label: 'Projects Completed',
       color: 'blue'
     },
-    // {
-    //   icon: Award,
-    //   count: '10+',
-    //   label: 'Certifications',
-    //   color: 'purple'
-    // },
     {
       icon: Users,
       count: '3+',
@@ -45,13 +40,47 @@ function App() {
     }
   ];
 
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Muhammed Nihal",
+    "jobTitle": "Full-Stack Developer & DevOps Engineer",
+    "url": "https://www.muhammednihal.com", // Replace with your actual domain
+    "sameAs": [
+      "https://github.com/muhdnihalcy",
+      "https://www.linkedin.com/in/nihalcy/"
+    ],
+    "skills": ["Backend Development", "DevOps", "Database Management", "System Architecture"]
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-['Inter']">
+      <Helmet>
+        <title>Muhammed Nihal | Full-Stack Developer & DevOps Engineer</title>
+        <meta name="description" content="Experienced Full-Stack Developer & DevOps Engineer specializing in scalable systems, backend development, and cloud architecture with 2+ years of professional experience." />
+        <meta name="keywords" content="Full-Stack Developer, DevOps Engineer, Backend Development, Node.js, Docker, AWS, Kubernetes, Cloud Architecture" />
+        <meta name="author" content="Muhammed Nihal" />
+        <meta property="og:title" content="Muhammed Nihal | Full-Stack Developer & DevOps Engineer" />
+        <meta property="og:description" content="Portfolio of Muhammed Nihal - Full-Stack Developer & DevOps Engineer with expertise in cloud-native applications and infrastructure automation." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.muhammednihal.com" /> {/* Replace with your actual domain */}
+        <meta property="og:image" content="https://www.muhammednihal.com/profile-image.jpg" /> {/* Replace with actual image URL */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Muhammed Nihal | Full-Stack Developer" />
+        <meta name="twitter:description" content="Experienced Full-Stack Developer & DevOps Engineer specializing in scalable systems and cloud architecture." />
+        <meta name="twitter:image" content="https://www.muhammednihal.com/profile-image.jpg" /> {/* Replace with actual image URL */}
+        <link rel="canonical" href="https://www.muhammednihal.com" /> {/* Replace with your domain */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
       {/* Navigation */}
-      <nav className={`${scrolled ? 'nav-blur' : 'bg-transparent'}`}>
+      <nav className={`${scrolled ? 'nav-blur' : 'bg-transparent'}`} aria-label="Main navigation">
         <div className="container mx-auto px-4 py-4 hidden">
           <div className="flex justify-between items-center">
-            <a href="#" className="text-2xl font-bold gradient-text">JD</a>
+            <a href="#" className="text-2xl font-bold gradient-text" aria-label="Home">MN</a>
             <div className="flex gap-8">
               <a href="#about" className="text-gray-300 hover:text-white transition-all hover:scale-105">About</a>
               <a href="#skills" className="text-gray-300 hover:text-white transition-all hover:scale-105">Skills</a>
@@ -73,26 +102,28 @@ function App() {
             <span className="inline-block px-4 py-2 rounded-full bg-gray-800/50 text-gray-300 mb-6 backdrop-blur-sm border border-gray-700/50">
               Welcome
             </span>
-            <h1 className="text-7xl md:text-8xl font-bold mb-8 gradient-text tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 gradient-text tracking-tight">
               Muhammed Nihal
             </h1>
-            <p className="text-3xl md:text-4xl mb-6 text-gray-300 font-light">
+            <h2 className="text-3xl md:text-4xl mb-6 text-gray-300 font-light">
               Full-Stack Developer & DevOps Engineer
-            </p>
+            </h2>
             <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
               Crafting scalable systems and elegant solutions that drive innovation and performance in the digital realm.
             </p>
             <div className="flex gap-6 justify-center">
-              <a 
-                href="#projects" 
+              <a
+                href="#projects"
                 className="group bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-xl font-medium transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 flex items-center gap-2"
+                aria-label="View my projects"
               >
                 Explore My Work
                 <ChevronRight className="group-hover:translate-x-1 transition-transform" />
               </a>
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 className="px-8 py-4 rounded-xl font-medium transition-all hover:scale-105 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-gray-600"
+                aria-label="Contact me"
               >
                 Get in Touch
               </a>
@@ -107,17 +138,20 @@ function App() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-4xl font-bold mb-16 text-center gradient-text">About Me</h2>
-            
+
             <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl filter blur-3xl transition-all duration-500 group-hover:scale-105"></div>
-                <img 
+                <img
                   src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
-                  alt="Developer workspace"
+                  alt="Muhammed Nihal's Developer Workspace showing a modern setup with multiple monitors and development tools"
                   className="rounded-3xl shadow-2xl relative z-10 transition-all duration-500 group-hover:scale-105"
+                  width="800"
+                  height="600"
+                  loading="lazy"
                 />
               </div>
-              
+
               <div className="space-y-8">
                 <div className="space-y-4">
                   <h3 className="text-2xl font-semibold text-gray-200">Passionate Full-Stack Developer</h3>
@@ -134,7 +168,7 @@ function App() {
                     <div className="tech-card group">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 group-hover:scale-110 transition-transform">
-                          <Terminal size={20} />
+                          <Terminal size={20} aria-hidden="true" />
                         </div>
                         <span className="font-medium">Backend Dev</span>
                       </div>
@@ -143,7 +177,7 @@ function App() {
                     <div className="tech-card group">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
-                          <Cloud size={20} />
+                          <Cloud size={20} aria-hidden="true" />
                         </div>
                         <span className="font-medium">DevOps</span>
                       </div>
@@ -152,7 +186,7 @@ function App() {
                     <div className="tech-card group">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 rounded-lg bg-green-500/10 text-green-400 group-hover:scale-110 transition-transform">
-                          <Database size={20} />
+                          <Database size={20} aria-hidden="true" />
                         </div>
                         <span className="font-medium">Databases</span>
                       </div>
@@ -161,7 +195,7 @@ function App() {
                     <div className="tech-card group">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 rounded-lg bg-yellow-500/10 text-yellow-400 group-hover:scale-110 transition-transform">
-                          <Server size={20} />
+                          <Server size={20} aria-hidden="true" />
                         </div>
                         <span className="font-medium">Architecture</span>
                       </div>
@@ -171,27 +205,30 @@ function App() {
                 </div>
 
                 <div className="flex gap-6">
-                  <a 
-                    href="https://github.com/muhdnihalcy" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href="https://github.com/muhdnihalcy"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-all hover:scale-110"
+                    aria-label="GitHub Profile"
                   >
-                    <Github size={24} />
+                    <Github size={24} aria-hidden="true" />
                   </a>
-                  <a 
-                    href="https://www.linkedin.com/in/nihalcy/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href="https://www.linkedin.com/in/nihalcy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-all hover:scale-110"
+                    aria-label="LinkedIn Profile"
                   >
-                    <Linkedin size={24} />
+                    <Linkedin size={24} aria-hidden="true" />
                   </a>
-                  <a 
-                    href="mailto:contact@mnihalcy@gmail.com" 
+                  <a
+                    href="mailto:mnihalcy@gmail.com"
                     className="text-gray-400 hover:text-white transition-all hover:scale-110"
+                    aria-label="Email Contact"
                   >
-                    <Mail size={24} />
+                    <Mail size={24} aria-hidden="true" />
                   </a>
                 </div>
               </div>
@@ -201,7 +238,7 @@ function App() {
               {achievements.map((achievement, index) => (
                 <div key={index} className="tech-card group text-center">
                   <div className={`inline-flex p-3 rounded-xl bg-${achievement.color}-500/10 text-${achievement.color}-400 border border-${achievement.color}-500/20 group-hover:scale-110 transition-transform mb-4`}>
-                    <achievement.icon size={24} />
+                    <achievement.icon size={24} aria-hidden="true" />
                   </div>
                   <div className="text-3xl font-bold text-white mb-2">{achievement.count}</div>
                   <div className="text-gray-400">{achievement.label}</div>
@@ -216,7 +253,7 @@ function App() {
       <section id="skills" className="py-32 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900/95 to-gray-900"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-bold mb-16 text-center gradient-text">Tech Stack</h2>
+          <h2 className="text-4xl font-bold mb-16 text-center gradient-text">Tech Stack & Skills</h2>
           <TechStack />
         </div>
       </section>
@@ -233,6 +270,7 @@ function App() {
               tech={['Node.js', 'WebSocket', 'Docker', 'AWS']}
               image="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
               link="https://github.com"
+              alt="Cloud-Native Chat Platform screenshot showing the application interface with real-time messaging capabilities"
             />
             <ProjectCard
               title="Automated CI/CD Pipeline"
@@ -240,6 +278,7 @@ function App() {
               tech={['Jenkins', 'Kubernetes', 'Docker', 'AWS EKS']}
               image="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
               link="https://github.com"
+              alt="CI/CD Pipeline architecture diagram showing automated workflow from code commit to production deployment"
             />
             <ProjectCard
               title="Infrastructure as Code"
@@ -247,6 +286,7 @@ function App() {
               tech={['Terraform', 'AWS', 'Python', 'GitOps']}
               image="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
               link="https://github.com"
+              alt="Infrastructure as Code project visualization showing cloud resource management through code"
             />
           </div>
         </div>
@@ -272,7 +312,11 @@ function App() {
       <footer className="py-8 relative">
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/95 to-gray-900"></div>
         <div className="container mx-auto px-4 text-center text-gray-400 relative z-10">
-          <p>© 2025 Muhammed Nihal C Y. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Muhammed Nihal C Y. All rights reserved.</p>
+          <div className="mt-4">
+            <a href="/sitemap.xml" className="text-gray-500 hover:text-gray-300 text-sm mx-2">Sitemap</a>
+            <a href="/privacy-policy" className="text-gray-500 hover:text-gray-300 text-sm mx-2">Privacy Policy</a>
+          </div>
         </div>
       </footer>
     </div>
