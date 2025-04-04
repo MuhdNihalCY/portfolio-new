@@ -21,25 +21,25 @@ function App() {
   const achievements = [
     {
       icon: Briefcase,
-      count: '50+',
+      count: '4+',
       label: 'Projects Completed',
       color: 'blue'
     },
-    {
-      icon: Award,
-      count: '10+',
-      label: 'Certifications',
-      color: 'purple'
-    },
+    // {
+    //   icon: Award,
+    //   count: '10+',
+    //   label: 'Certifications',
+    //   color: 'purple'
+    // },
     {
       icon: Users,
-      count: '20+',
+      count: '3+',
       label: 'Happy Clients',
       color: 'green'
     },
     {
       icon: Coffee,
-      count: '5+',
+      count: '2+',
       label: 'Years Experience',
       color: 'yellow'
     }
@@ -197,7 +197,7 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {achievements.map((achievement, index) => (
                 <div key={index} className="tech-card group text-center">
                   <div className={`inline-flex p-3 rounded-xl bg-${achievement.color}-500/10 text-${achievement.color}-400 border border-${achievement.color}-500/20 group-hover:scale-110 transition-transform mb-4`}>

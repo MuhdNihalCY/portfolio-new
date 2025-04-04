@@ -1,104 +1,108 @@
-import React, { useEffect, useRef } from 'react';
-import { Server, Cloud, Database, Code2, GitBranch, Globe, Lock, Cpu } from 'lucide-react';
+import React from 'react';
+import { Server, Cloud, Database, Code2, Lock, Cpu, Globe, Layout } from 'lucide-react';
 
-const TechStack: React.FC = () => {
-  const technologies = {
-    backend: {
+const TechStack = () => {
+  const departments = [
+    {
+      title: 'Frontend Development',
+      description: 'Creating responsive and interactive user interfaces',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'Svelte', 'jQuery', 'Bootstrap', 'Tailwind CSS'],
+      icon: Layout,
+      color: 'sky'
+    },
+    {
       title: 'Backend Development',
       description: 'Building robust and scalable server-side applications',
-      skills: [
-        { name: 'Node.js', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'Java', level: 80 },
-        { name: 'Go', level: 75 },
-      ],
+      technologies: ['Node.js', 'Express.js'],
       icon: Code2,
       color: 'blue'
     },
-    devops: {
+    {
       title: 'DevOps & CI/CD',
       description: 'Automating deployment and infrastructure management',
-      skills: [
-        { name: 'Docker', level: 95 },
-        { name: 'Kubernetes', level: 85 },
-        { name: 'Jenkins', level: 90 },
-        { name: 'GitLab CI', level: 85 },
-      ],
+      technologies: ['Docker', 'GitLab CI'],
       icon: Server,
       color: 'purple'
     },
-    cloud: {
+    {
       title: 'Cloud Architecture',
       description: 'Designing and implementing cloud-native solutions',
-      skills: [
-        { name: 'AWS', level: 90 },
-        { name: 'Azure', level: 85 },
-        { name: 'GCP', level: 80 },
-        { name: 'Terraform', level: 85 },
-      ],
+      technologies: ['AWS', 'Digital Ocean', 'Azure'],
       icon: Cloud,
-      color: 'green'
+      color: 'emerald'
     },
-    databases: {
+    {
       title: 'Database Systems',
       description: 'Managing and optimizing data storage solutions',
-      skills: [
-        { name: 'PostgreSQL', level: 90 },
-        { name: 'MongoDB', level: 85 },
-        { name: 'Redis', level: 80 },
-        { name: 'Elasticsearch', level: 75 },
-      ],
+      technologies: ['MongoDB','MySql', 'S3'],
       icon: Database,
-      color: 'yellow'
+      color: 'amber'
     },
-    security: {
+    {
       title: 'Security & DevSecOps',
       description: 'Implementing secure development practices',
-      skills: [
-        { name: 'OAuth/OIDC', level: 85 },
-        { name: 'AWS Security', level: 90 },
-        { name: 'Container Security', level: 85 },
-        { name: 'Vault', level: 80 },
-      ],
+      technologies: ['OAuth/OIDC', 'AWS Security', 'Container Security', 'Vault'],
       icon: Lock,
-      color: 'red'
+      color: 'rose'
     },
-    architecture: {
+    {
       title: 'System Architecture',
       description: 'Designing scalable distributed systems',
-      skills: [
-        { name: 'Microservices', level: 90 },
-        { name: 'Event-Driven', level: 85 },
-        { name: 'API Design', level: 90 },
-        { name: 'System Design', level: 85 },
-      ],
+      technologies: ['Microservices', 'Event-Driven', 'API Design', 'System Design'],
       icon: Cpu,
       color: 'indigo'
     }
+  ];
+
+  const additionalTech = {
+    'Tools & Platforms': ['Git & GitHub', 'VS Code', 'Postman'],
+    'Methodologies': ['Agile/Scrum', 'TDD', 'GitOps', 'DevSecOps'],
+    'Soft Skills': ['Technical Leadership', 'Problem Solving', 'Team Collaboration', 'Communication']
   };
 
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    cardRefs.current.forEach(card => {
-      if (!card) return;
-
-      const handleMouseMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-      };
-
-      card.addEventListener('mousemove', handleMouseMove);
-
-      return () => {
-        card.removeEventListener('mousemove', handleMouseMove);
-      };
-    });
-  }, []);
+  // Helper function to get Tailwind class for each color
+  const getColorClass = (color, type) => {
+    const colorMap = {
+      background: {
+        sky: 'bg-sky-500/10',
+        blue: 'bg-blue-500/10',
+        purple: 'bg-purple-500/10',
+        emerald: 'bg-emerald-500/10',
+        amber: 'bg-amber-500/10', 
+        rose: 'bg-rose-500/10',
+        indigo: 'bg-indigo-500/10'
+      },
+      text: {
+        sky: 'text-sky-400',
+        blue: 'text-blue-400',
+        purple: 'text-purple-400',
+        emerald: 'text-emerald-400',
+        amber: 'text-amber-400',
+        rose: 'text-rose-400',
+        indigo: 'text-indigo-400'
+      },
+      border: {
+        sky: 'border-sky-500/20',
+        blue: 'border-blue-500/20',
+        purple: 'border-purple-500/20',
+        emerald: 'border-emerald-500/20',
+        amber: 'border-amber-500/20',
+        rose: 'border-rose-500/20',
+        indigo: 'border-indigo-500/20'
+      },
+      dot: {
+        sky: 'bg-sky-400',
+        blue: 'bg-blue-400',
+        purple: 'bg-purple-400',
+        emerald: 'bg-emerald-400',
+        amber: 'bg-amber-400',
+        rose: 'bg-rose-400',
+        indigo: 'bg-indigo-400'
+      }
+    };
+    
+    return colorMap[type][color];
+  };
 
   return (
     <div className="space-y-16">
@@ -106,78 +110,57 @@ const TechStack: React.FC = () => {
         <h3 className="text-2xl font-semibold mb-4 text-gray-200">Professional Expertise</h3>
         <p className="text-gray-400 leading-relaxed">
           With extensive experience across the full development stack, I specialize in building
-          scalable backend systems, implementing DevOps practices, and architecting cloud solutions.
-          Here's a comprehensive overview of my technical expertise and the technologies I work with.
+          scalable systems, implementing DevOps practices, and creating responsive user interfaces.
+          Here's an overview of my technical expertise by department.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {Object.entries(technologies).map(([key, tech], index) => (
+        {departments.map((dept, index) => (
           <div 
-            key={key}
-            ref={el => cardRefs.current[index] = el} 
-            className="tech-card group"
+            key={index}
+            className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-gray-500 transition-all shadow-lg"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className={`p-3 rounded-xl bg-${tech.color}-500/10 text-${tech.color}-400 border border-${tech.color}-500/20 group-hover:scale-110 transition-transform`}>
-                <tech.icon size={24} />
+              <div className={`p-3 rounded-xl ${getColorClass(dept.color, 'background')} ${getColorClass(dept.color, 'text')} border ${getColorClass(dept.color, 'border')}`}>
+                <dept.icon size={24} />
               </div>
               <div>
-                <h3 className="text-xl font-semibold">{tech.title}</h3>
-                <p className="text-sm text-gray-400 mt-1">{tech.description}</p>
+                <h3 className="text-xl font-semibold text-gray-200">{dept.title}</h3>
+                <p className="text-sm text-gray-400 mt-1">{dept.description}</p>
               </div>
             </div>
-            <div className="space-y-4">
-              {tech.skills.map((skill) => (
-                <div key={skill.name} className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-300">{skill.name}</span>
-                    <span className="text-gray-400">{skill.level}%</span>
-                  </div>
-                  <div className="h-2 bg-gray-700/50 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full bg-${tech.color}-500/50 rounded-full transition-all duration-500 group-hover:bg-${tech.color}-400/50`}
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
+            <div className="mt-4">
+              <ul className="grid grid-cols-2 gap-3">
+                {dept.technologies.map((tech, i) => (
+                  <li key={i} className="flex items-center">
+                    <span className={`w-2 h-2 rounded-full ${getColorClass(dept.color, 'dot')} mr-2`}></span>
+                    <span className="text-gray-300">{tech}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}
       </div>
 
       <div className="max-w-4xl mx-auto mt-16">
-        <div className="tech-card">
-          <h3 className="text-2xl font-semibold mb-6 gradient-text">Additional Expertise</h3>
+        <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-8 hover:border-gray-500 transition-all shadow-lg">
+          <h3 className="text-2xl font-semibold mb-6 text-gray-200">Additional Expertise</h3>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <h4 className="text-lg font-medium text-gray-200">Tools & Platforms</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>• Git & GitHub</li>
-                <li>• VS Code</li>
-                <li>• Postman</li>
-                <li>• Jira & Confluence</li>
-              </ul>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-lg font-medium text-gray-200">Methodologies</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>• Agile/Scrum</li>
-                <li>• TDD/BDD</li>
-                <li>• GitOps</li>
-                <li>• DevSecOps</li>
-              </ul>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-lg font-medium text-gray-200">Soft Skills</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>• Technical Leadership</li>
-                <li>• Problem Solving</li>
-                <li>• Team Collaboration</li>
-                <li>• Communication</li>
-              </ul>
-            </div>
+            {Object.entries(additionalTech).map(([category, items], index) => (
+              <div key={index} className="space-y-2">
+                <h4 className="text-lg font-medium text-gray-200">{category}</h4>
+                <ul className="space-y-2">
+                  {items.map((item, i) => (
+                    <li key={i} className="text-gray-400 flex items-center">
+                      <span className="w-1 h-1 rounded-full bg-blue-400 mr-2"></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>
