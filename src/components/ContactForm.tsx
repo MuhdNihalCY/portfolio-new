@@ -44,7 +44,7 @@ const ContactDetails: React.FC = () => {
             <div>
               <h4 className="font-medium text-gray-300">Location</h4>
               <p className="text-gray-400">
-                Calicut, Kerala, India
+                Kerala, India
               </p>
             </div>
           </div>

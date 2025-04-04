@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Github, Linkedin, Mail, Terminal, Server, Cloud, Code2, Database, ArrowDown, ChevronRight, Briefcase, Award, Users, Coffee } from 'lucide-react';
 import TechStack from './components/TechStack';
 import ProjectCard from './components/ProjectCard';
@@ -9,7 +9,79 @@ import { Helmet } from "react-helmet"; // Added for better SEO meta tags
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
+  const cursorRef = useRef(null);
+  const cursorDotRef = useRef(null);
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const [cursorEnlarged, setCursorEnlarged] = useState(false);
+  const [linkHovered, setLinkHovered] = useState(false);
 
+  // Handle cursor movement
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    const cursorDot = cursorDotRef.current;
+    
+    if (!cursor || !cursorDot) return;
+
+    // Only apply custom cursor on non-touch devices
+    const isTouchDevice = () => {
+      return (('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0));
+    };
+
+    if (isTouchDevice()) {
+      cursor.style.display = 'none';
+      cursorDot.style.display = 'none';
+      return;
+    }
+
+    const moveCursor = (e) => {
+      const mouseY = e.clientY;
+      const mouseX = e.clientX;
+      
+      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    };
+
+    const handleMouseEnter = () => {
+      setCursorVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setCursorVisible(false);
+    };
+
+    // Add link hover listeners to all interactive elements
+    const addLinkHoverListeners = () => {
+      document.querySelectorAll('a, button, .tech-card, [role="button"]').forEach(el => {
+        el.addEventListener('mouseenter', () => setLinkHovered(true));
+        el.addEventListener('mouseleave', () => setLinkHovered(false));
+      });
+    };
+
+    window.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mouseenter', handleMouseEnter);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    
+    // Add link hover listeners after component mounts
+    addLinkHoverListeners();
+
+    // Update listeners when new elements are added (e.g., after dynamic content loads)
+    const observer = new MutationObserver(() => {
+      addLinkHoverListeners();
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mouseenter', handleMouseEnter);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      observer.disconnect();
+    };
+  }, []);
+
+  // Handle page scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -56,6 +128,43 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-['Inter']">
+      {/* Custom Cursor */}
+      <div 
+        ref={cursorRef} 
+        className="custom-cursor" 
+        style={{
+          opacity: cursorVisible ? 1 : 0,
+          transform: 'translate3d(-100px, -100px, 0)',
+          pointerEvents: 'none',
+          position: 'fixed',
+          width: linkHovered ? '50px' : '30px',
+          height: linkHovered ? '50px' : '30px',
+          borderRadius: '50%',
+          border: '1px solid rgba(255, 255, 255, 0.5)',
+          transition: 'opacity 0.2s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease',
+          zIndex: 9999,
+          mixBlendMode: 'difference',
+          background: linkHovered ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+          backdropFilter: 'blur(1px)',
+        }}
+      />
+      <div 
+        ref={cursorDotRef} 
+        className="cursor-dot" 
+        style={{
+          opacity: cursorVisible ? 1 : 0,
+          transform: 'translate3d(-100px, -100px, 0)',
+          pointerEvents: 'none',
+          position: 'fixed',
+          width: '8px',
+          height: '8px',
+          borderRadius: '50%',
+          backgroundColor: 'white',
+          zIndex: 10000,
+          transition: 'opacity 0.2s ease',
+        }}
+      />
+
       <Helmet>
         <title>Muhammed Nihal | Full-Stack Developer & DevOps Engineer</title>
         <meta name="description" content="Experienced Full-Stack Developer & DevOps Engineer specializing in scalable systems, backend development, and cloud architecture with 2+ years of professional experience." />
@@ -74,6 +183,28 @@ function App() {
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
+        <style>
+          {`
+            /* Hide default cursor */
+            html, body {
+              cursor: none !important;
+            }
+            
+            a, button, .tech-card, [role="button"] {
+              cursor: none !important;
+            }
+
+            /* Disable custom cursor on mobile */
+            @media (max-width: 768px) {
+              .custom-cursor, .cursor-dot {
+                display: none !important;
+              }
+              html, body, a, button {
+                cursor: auto !important;
+              }
+            }
+          `}
+        </style>
       </Helmet>
 
       {/* Navigation */}
