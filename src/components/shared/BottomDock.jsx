@@ -1,23 +1,8 @@
 import React from 'react';
 import './BottomDock.css';
+import NavButton from '../ui/NavButton.jsx';
 
-interface NavButtonProps {
-    title: string;
-    icon: React.ReactNode;
-    link: string;
-}
-
-const NavButton: React.FC<NavButtonProps> = ({ title, icon, link }) => {
-    return (
-        <a href={link} target="_blank" rel="noopener noreferrer" className="nav-button">
-            <button type="button" data-title={title}>
-                {icon}
-            </button>
-        </a>
-    );
-};
-
-const DockNavigation: React.FC = () => {
+const DockNavigation = () => {
     const buttons = [
         {
             title: 'LinkedIn',

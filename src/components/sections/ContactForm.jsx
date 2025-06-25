@@ -1,7 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 
-const ContactDetails: React.FC = () => {
+const ContactDetails = () => {
   return (
     <div className="tech-card">
       <div className="space-y-8">

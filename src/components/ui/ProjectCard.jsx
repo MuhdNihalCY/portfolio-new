@@ -1,22 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { ExternalLink } from 'lucide-react';
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  tech: string[];
-  image: string;
-  link?: string;
-}
-
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, tech, image, link }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+const ProjectCard = ({ title, description, tech, image, link }) => {
+  const cardRef = useRef(null);
 
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -33,7 +25,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, tech, ima
   }, []);
 
   return (
-    <div ref={cardRef} className="project-card group">
+    <div ref={cardRef} className="project-card group relative">
+      <div className="absolute top-4 left-4 z-10">
+        <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-yellow-500/90 text-gray-900 shadow-md animate-pulse">
+          Adding Soon
+        </span>
+      </div>
       <div className="relative">
         <img 
           src={image} 
